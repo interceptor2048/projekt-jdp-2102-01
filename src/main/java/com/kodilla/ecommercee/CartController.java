@@ -24,7 +24,7 @@ public class CartController {
 
     @RequestMapping(method = RequestMethod.PUT, value = "addToCart")
     public void addProductsToCart(@RequestParam Long productId) {
-        new CartDto(1L, productId, 1L);
+        new CartDto(1L, 2L, productId);
     }
 
     @RequestMapping(method = RequestMethod.DELETE, value = "deleteProduct")
