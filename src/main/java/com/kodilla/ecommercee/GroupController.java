@@ -10,7 +10,6 @@ import java.util.List;
 @RestController
 @RequestMapping("/v1/api/groups")
 public class GroupController {
-
     @GetMapping
     public List<GroupDto> getGroups() {
         return new ArrayList<>();
@@ -29,5 +28,4 @@ public class GroupController {
     public GroupDto updateGroup(@RequestBody GroupDto groupDto) {
         return new GroupDto(123, "Test content");
     }
-
 }

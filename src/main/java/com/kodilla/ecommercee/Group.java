@@ -17,6 +17,5 @@ public class Group {
     @Id
     @GeneratedValue
     private int id;
-
     private String name;
 }
