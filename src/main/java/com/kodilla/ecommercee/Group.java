@@ -14,7 +14,6 @@ import javax.persistence.Id;
 @AllArgsConstructor
 public class Group {
 
-
     @Id
     @GeneratedValue
     private int id;
