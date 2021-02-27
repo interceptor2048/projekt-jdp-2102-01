@@ -7,17 +7,18 @@ import org.springframework.web.bind.annotation.*;
 @RequestMapping("/v1/user")
 public class UserController {
 
-    @RequestMapping(method = RequestMethod.POST, value = "createUser")
-    public void createUser(UserDto userDto) { }
+    @PostMapping(value = "createUser")
+    public void createUser(@RequestBody UserDto userDto) {
+        System.out.println("User was created.");
+    }
 
-    @RequestMapping(method = RequestMethod.PUT, value = "banUser")
-    public UserDto banUser(UserDto userDto) {
+    @PutMapping(value = "banUser")
+    public UserDto banUser(@RequestBody UserDto userDto) {
         return new UserDto(1L,"Piotr", 1,59403L);
     }
 
-    @RequestMapping(method = RequestMethod.PUT, value = "generateRandomKey")
-    public UserDto generateRandomKey(UserDto userDto) {
+    @PutMapping(value = "generateRandomKey")
+    public UserDto generateRandomKey(@RequestBody UserDto userDto) {
         return new UserDto(1L,"Piotr",0,91735L);
     }
-
 }
