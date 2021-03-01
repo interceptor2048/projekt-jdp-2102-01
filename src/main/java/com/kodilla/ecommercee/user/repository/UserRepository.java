@@ -15,7 +15,7 @@ public interface UserRepository extends CrudRepository<User, Integer> {
     @Override
     List<User> findAll();
 
-    @Override
+    @Query
     Optional<User> findById(Long id);
 
     @Query
@@ -24,6 +24,6 @@ public interface UserRepository extends CrudRepository<User, Integer> {
     @Override
     User save(User user);
 
-    @Override
+    @Query
     void deleteById(Long id);
 }
