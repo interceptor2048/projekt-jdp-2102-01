@@ -33,7 +33,7 @@ public class CartController {
     }
 
     @PostMapping(value = "createOrder")
-    public OrderDto createOrder(@RequestBody CartDto cartDto) {
-        return new OrderDto(cartDto.getId(), cartDto.getUserId(), cartDto.getProducts());
+    public void createOrder(@RequestBody CartDto cartDto) {
+
     }
 }
