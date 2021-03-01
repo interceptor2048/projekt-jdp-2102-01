@@ -12,10 +12,10 @@ import java.util.Optional;
 @Transactional
 @Repository
 public interface UserRepository extends CrudRepository<User, Integer> {
-    @Query
+    @Override
     List<User> findAll();
 
-    @Query
+    @Override
     Optional<User> findById(Long id);
 
     @Query
@@ -24,6 +24,6 @@ public interface UserRepository extends CrudRepository<User, Integer> {
     @Override
     User save(User user);
 
-    @Query
+    @Override
     void deleteById(Long id);
 }
