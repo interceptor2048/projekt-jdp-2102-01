@@ -17,7 +17,7 @@ public class Group {
 
     @OneToMany(
             targetEntity = Product.class,
-            mappedBy = "groups",
+            mappedBy = "group",
             cascade = CascadeType.ALL,
             fetch = FetchType.LAZY
     )
