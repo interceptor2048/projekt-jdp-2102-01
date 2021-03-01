@@ -1,14 +1,12 @@
 package com.kodilla.ecommercee;
 
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.ArrayList;
 import java.util.List;
 
 @RestController
-@RequestMapping("/v1/api/groups")
+@RequestMapping("v1/api/groups")
 public class GroupController {
     @GetMapping
     public List<GroupDto> getGroups() {
