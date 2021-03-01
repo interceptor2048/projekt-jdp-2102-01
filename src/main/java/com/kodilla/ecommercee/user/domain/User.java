@@ -43,5 +43,5 @@ public class User{
     private List<Order> orders;
 
     @OneToMany(mappedBy = "user")
-    private Cart cart;
+    private List<Cart> carts;
 }
