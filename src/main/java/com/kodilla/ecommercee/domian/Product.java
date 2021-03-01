@@ -19,14 +19,14 @@ public class Product {
     @Id
     @NotNull
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "productId")
+    @Column(name = "id")
     private Long id;
 
-    @Column(name = "productName")
+    @Column(name = "name")
     @NotNull
     private String productName;
 
-    @Column(name = "productDescription")
+    @Column(name = "description")
     private String productDescription;
 
     @Column(name = "price")
