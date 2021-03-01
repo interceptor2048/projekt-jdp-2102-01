@@ -18,12 +18,12 @@ public class GroupController {
     }
 
     @GetMapping("/{groupId}")
-    public GroupDto getGroup(@PathVariable int groupId) {
+    public GroupDto getGroup(@RequestBody GroupDto groupDto ) {
         return new GroupDto(123, "First Group");
     }
 
     @PutMapping
-    public GroupDto updateGroup(@RequestBody GroupDto groupDto) {
+    public GroupDto updateGroup( GroupDto groupDto) {
         return new GroupDto(123, "Test content");
     }
 
