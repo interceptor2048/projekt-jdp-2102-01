@@ -17,8 +17,8 @@ public class ProductController {
     }
 
     @GetMapping(value = "getProduct")
-    public ProductDto getProduct (@RequestParam int productId) {
-        return new ProductDto(1, "sample product", "sample description", 2.5, 1);
+    public ProductDto getProduct (@RequestParam Long productId) {
+        return new ProductDto(1L, "sample product", "sample description", 2.5, 1);
     }
 
     @PostMapping(value = "createProduct")
@@ -28,11 +28,11 @@ public class ProductController {
 
     @PutMapping(value = "updateProduct")
     public ProductDto updateProduct(@RequestBody ProductDto productDto) {
-        return new ProductDto (1, "edited sample product", "edited sample description", 2.5, 1);
+        return new ProductDto (1L, "edited sample product", "edited sample description", 2.5, 1);
     }
 
     @DeleteMapping(value = "deleteProduct")
-    public void deleteProduct() {
+    public void deleteProduct(@RequestParam Long productId) {
 
     }
 }
