@@ -18,8 +18,8 @@ public interface UserRepository extends CrudRepository<User, Integer> {
     @Query
     Optional<User> findById(Long id);
 
-    @Query
-    List<User> findActiveUsers();
+    //@Query
+    //List<User> findActiveUsers();
 
     @Override
     User save(User user);
