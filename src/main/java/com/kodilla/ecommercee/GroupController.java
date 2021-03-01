@@ -19,11 +19,12 @@ public class GroupController {
 
     @GetMapping("/{groupId}")
     public GroupDto getGroup(@PathVariable int groupId) {
-        return new GroupDto(123, "First Group");
+        return new GroupDto();
     }
 
     @PutMapping
     public GroupDto updateGroup(@RequestBody GroupDto groupDto) {
-        return new GroupDto(123, "Test content");
+        return new GroupDto();
     }
+
 }
