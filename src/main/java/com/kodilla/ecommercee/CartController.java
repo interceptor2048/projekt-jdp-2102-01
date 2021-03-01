@@ -20,7 +20,7 @@ public class CartController {
     }
 
     @PutMapping(value = "addToCart")
-    public void addProductsToCart(@RequestParam List<ProductDto> productsDto) {
+    public void addProductToCart(@RequestParam Long cartId, @RequestParam Long productId) {
 
     }
 
