@@ -12,28 +12,28 @@ import java.util.List;
 @RequestMapping("/v1/cart")
 public class CartController {
 
-    @RequestMapping(method = RequestMethod.POST, value = "createNewCart")
-    public CartDto createNewCart() {
-        return new CartDto();
+    @PostMapping(value = "createNewCart")
+    public void createNewCart() {
+
     }
 
-    @RequestMapping(method = RequestMethod.GET, value = "getProducts")
+    @GetMapping(value = "getProducts")
     public List<ProductDto> getProducts() {
         return new ArrayList<>();
     }
 
-    @RequestMapping(method = RequestMethod.PUT, value = "addToCart")
-    public void addProductsToCart(@RequestParam Long productId) {
-        new CartDto(1L, 2L, productId);
+    @PutMapping(value = "addToCart")
+    public void addProductsToCart(@RequestParam List<ProductDto> productsDto) {
+
     }
 
-    @RequestMapping(method = RequestMethod.DELETE, value = "deleteProduct")
+    @DeleteMapping(value = "deleteProduct")
     public void deleteProduct(@RequestParam Long productId) {
 
     }
 
-    @RequestMapping(method = RequestMethod.POST, value = "createOrder")
+    @PostMapping(value = "createOrder")
     public OrderDto createOrder(@RequestBody CartDto cartDto) {
-        return new OrderDto(cartDto.getId(), cartDto.getProductId(), cartDto.getUserId());
+        return new OrderDto(cartDto.getId(), cartDto.getUserId(), cartDto.getProducts());
     }
 }
