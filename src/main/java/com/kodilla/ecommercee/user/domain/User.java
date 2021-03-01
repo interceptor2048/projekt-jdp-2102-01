@@ -28,7 +28,7 @@ public class User{
 
     @Column(name = "Status")
     @NotNull
-    private Integer status;
+    private boolean status;
 
     @NotNull
     @Column(name = "userKey")
