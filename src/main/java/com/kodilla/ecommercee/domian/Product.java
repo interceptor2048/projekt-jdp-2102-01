@@ -38,7 +38,7 @@ public class Product {
 
     @ManyToOne
     @JoinColumn(name = "groupId")
-    private Groups groups;
+    private Group group;
 
     @OneToMany(
             targetEntity = OrderItems.class,

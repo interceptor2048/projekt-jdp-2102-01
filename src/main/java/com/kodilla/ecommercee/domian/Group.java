@@ -11,7 +11,7 @@ import java.util.List;
 @AllArgsConstructor
 @NoArgsConstructor
 @Entity(name = "groups")
-public class Groups {
+public class Group {
     @Id
     private Long id;
 
