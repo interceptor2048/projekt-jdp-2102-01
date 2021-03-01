@@ -11,4 +11,5 @@ public class GroupDto {
 
     private int id;
     private String name;
+
 }
