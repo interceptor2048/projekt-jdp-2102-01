@@ -25,7 +25,7 @@ public class CartController {
     }
 
     @DeleteMapping(value = "deleteProduct")
-    public void deleteProduct(@RequestParam Long productId) {
+    public void deleteProduct(@RequestParam Long cartId, @RequestParam Long productId) {
 
     }
 
