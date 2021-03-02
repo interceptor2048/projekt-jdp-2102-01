@@ -1,13 +1,11 @@
-package com.kodilla.ecommercee.order.domain;
-
-import com.kodilla.ecommercee.user.domain.User;
+package com.kodilla.ecommercee.domain;
 
 import javax.persistence.Entity;
 import javax.persistence.Id;
 import javax.persistence.ManyToOne;
 
-@Entity(name = "orders")
-public class Order {
+@Entity(name = "carts")
+public class Cart {
     @Id
     private Long id;
 

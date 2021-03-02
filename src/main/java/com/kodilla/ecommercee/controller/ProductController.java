@@ -1,12 +1,10 @@
-package com.kodilla.ecommercee.product.controller;
+package com.kodilla.ecommercee.controller;
 
-import com.kodilla.ecommercee.product.domain.ProductDto;
+import com.kodilla.ecommercee.domain.dto.ProductDto;
 import org.springframework.web.bind.annotation.*;
-
 
 import java.util.ArrayList;
 import java.util.List;
-
 
 @RestController
 @RequestMapping("/v1/product")

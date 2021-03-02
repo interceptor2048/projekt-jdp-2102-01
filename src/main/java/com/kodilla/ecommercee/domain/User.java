@@ -1,7 +1,7 @@
-package com.kodilla.ecommercee.user.domain;
+package com.kodilla.ecommercee.domain;
 
-import com.kodilla.ecommercee.cart.domain.Cart;
-import com.kodilla.ecommercee.order.domain.Order;
+import com.kodilla.ecommercee.domain.Cart;
+import com.kodilla.ecommercee.domain.Order;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
