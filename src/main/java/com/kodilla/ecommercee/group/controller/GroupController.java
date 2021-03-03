@@ -9,6 +9,7 @@ import java.util.List;
 @RestController
 @RequestMapping("v1/api/groups")
 public class GroupController {
+
     @GetMapping
     public List<GroupDto> getGroups() {
         return new ArrayList<>();
