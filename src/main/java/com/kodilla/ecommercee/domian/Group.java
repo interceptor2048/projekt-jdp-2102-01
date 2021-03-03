@@ -15,6 +15,8 @@ public class Group {
     @Id
     private Long id;
 
+    private String name;
+
     @OneToMany(
             targetEntity = Product.class,
             mappedBy = "group",
@@ -23,4 +25,8 @@ public class Group {
     )
     private List<Product> productList;
 
+    public Group(Long id, String name) {
+        this.id = id;
+        this.name = name;
+    }
 }
