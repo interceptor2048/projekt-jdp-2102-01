@@ -30,6 +30,9 @@ public class Cart {
     @ManyToMany(
             targetEntity = Product.class,
             cascade = CascadeType.ALL)
-    @JoinColumn(name = "Cart_id")
+    @JoinTable(
+            name = "products_In_Cart",
+            joinColumns = @JoinColumn(name = "Cart_id")
+    )
     private List<Product> products;
 }

@@ -1,10 +1,9 @@
 package com.kodilla.ecommercee.domian;
 
-
+import com.kodilla.ecommercee.domain.Cart;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
-
 
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
@@ -33,7 +32,7 @@ public class Product {
     @NotNull
     private Double price;
 
-    @ManyToMany(mappedBy = "productList")
+    @ManyToMany(mappedBy = "products")
     private List<Cart> cartList;
 
     @ManyToOne
