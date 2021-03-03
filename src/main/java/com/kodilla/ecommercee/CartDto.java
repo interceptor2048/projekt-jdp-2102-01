@@ -1,6 +1,6 @@
 package com.kodilla.ecommercee;
 
-import com.kodilla.ecommercee.product.ProductDto;
+import com.kodilla.ecommercee.domain.dto.ProductDto;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
