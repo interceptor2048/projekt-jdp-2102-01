@@ -1,22 +1,21 @@
 package com.kodilla.ecommercee.repository;
 
 import com.kodilla.ecommercee.domain.Cart;
-import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.CrudRepository;
 
 import java.util.List;
 import java.util.Optional;
 
-public interface CartRepository extends CrudRepository<Cart, Integer> {
+public interface CartRepository extends CrudRepository<Cart, Long> {
     @Override
     List<Cart> findAll();
 
     @Override
-     Cart save(Cart cart);
+    Cart save(Cart cart);
 
-    @Query
+    @Override
     Optional<Cart> findById(Long id);
 
-    @Query
+    @Override
     void deleteById(Long id);
 }
