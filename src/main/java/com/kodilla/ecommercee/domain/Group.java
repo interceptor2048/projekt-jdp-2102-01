@@ -32,6 +32,7 @@ public class Group {
     private List<Product> productList;
 
     public Group(@NotNull Long id, String groupName) {
+
         this.id = id;
         this.groupName = groupName;
     }

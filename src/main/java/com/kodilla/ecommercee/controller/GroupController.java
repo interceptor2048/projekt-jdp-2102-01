@@ -1,32 +1,50 @@
 package com.kodilla.ecommercee.controller;
 
+import com.kodilla.ecommercee.controller.exceptions.GroupNotFoundException;
+import com.kodilla.ecommercee.domain.Group;
 import com.kodilla.ecommercee.domain.dto.GroupDto;
+import com.kodilla.ecommercee.mapper.GroupMapper;
+import com.kodilla.ecommercee.service.GroupDbService;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.ArrayList;
 import java.util.List;
 
 @RestController("GroupController")
 @RequestMapping("/v1/group")
 public class GroupController {
+    private final GroupMapper mapper;
+    private final GroupDbService service;
 
-    @GetMapping
+    @Autowired
+    public GroupController(GroupMapper mapper, GroupDbService service) {
+        this.mapper = mapper;
+        this.service = service;
+    }
+
+    @GetMapping(value = "getAllGroups")
     public List<GroupDto> getGroups() {
-        return new ArrayList<>();
+        List<Group> groups = service.getAllGroups();
+        return mapper.mapToGroupDtoList(groups);
     }
 
-    @PostMapping
+    @PostMapping(value = "createGroup", consumes = MediaType.APPLICATION_JSON_VALUE)
     public void createGroup(@RequestBody GroupDto groupDto) {
+        Group group = mapper.mapToGroup(groupDto);
+        service.saveGroup(group);
     }
 
-    @GetMapping("/{groupId}")
-    public GroupDto getGroup(@RequestBody GroupDto groupDto) {
-        return new GroupDto(123, "First Group");
+    @GetMapping("getGroup")
+    public GroupDto getGroup(@RequestParam Long groupId) throws GroupNotFoundException {
+        return mapper.mapToGroupDto(service.getGroup(groupId).orElseThrow(GroupNotFoundException::new));
     }
 
-    @PutMapping
+    @PutMapping(value = "updateGroup")
     public GroupDto updateGroup(GroupDto groupDto) {
-        return new GroupDto(123, "Test content");
+        Group group = mapper.mapToGroup(groupDto);
+        Group savedGroup = service.saveGroup(group);
+        return mapper.mapToGroupDto(savedGroup);
     }
 }
 
