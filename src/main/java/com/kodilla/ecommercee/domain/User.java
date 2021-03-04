@@ -1,16 +1,16 @@
 package com.kodilla.ecommercee.domain;
 
-import com.kodilla.ecommercee.domain.Cart;
-import com.kodilla.ecommercee.domain.Order;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
+import lombok.Setter;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
 import java.util.List;
 
 @Getter
+@Setter
 @AllArgsConstructor
 @NoArgsConstructor
 @Entity
@@ -28,7 +28,7 @@ public class User{
 
     @Column(name = "Status")
     @NotNull
-    private boolean status;
+    private boolean status=true;
 
     @NotNull
     @Column(name = "userKey")
@@ -44,4 +44,8 @@ public class User{
 
     @OneToMany(mappedBy = "user")
     private List<Cart> carts;
+
+    public User(@NotNull String userName) {
+        this.userName = userName;
+    }
 }
