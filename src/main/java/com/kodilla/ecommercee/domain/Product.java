@@ -1,7 +1,5 @@
-package com.kodilla.ecommercee.domian;
+package com.kodilla.ecommercee.domain;
 
-import com.kodilla.ecommercee.domain.Cart;
-import com.kodilla.ecommercee.domain.Group;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -48,4 +46,10 @@ public class Product {
     )
     private List<OrderItems> orderItems;
 
+    public Product(@NotNull Long id, @NotNull String productName, String productDescription, @NotNull Double price) {
+        this.id = id;
+        this.productName = productName;
+        this.productDescription = productDescription;
+        this.price = price;
+    }
 }
