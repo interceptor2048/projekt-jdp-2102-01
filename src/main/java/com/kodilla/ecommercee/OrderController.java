@@ -1,8 +1,8 @@
 package com.kodilla.ecommercee;
 
 
-import com.kodilla.ecommercee.domain.OrderDto;
-import org.springframework.data.domain.jaxb.SpringDataJaxb;
+import com.kodilla.ecommercee.domain.User;
+import com.kodilla.ecommercee.domain.dto.OrderDto;
 import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.*;
 
@@ -21,7 +21,7 @@ public class OrderController {
 
     @GetMapping(value = "getOrder")
     public OrderDto getOrder(@RequestParam Long orderId) {
-        return new OrderDto(1L);
+        return new OrderDto(1L, new User(), true, true, true);
     }
 
     @DeleteMapping(value = "deleteOrder")
@@ -30,7 +30,7 @@ public class OrderController {
 
     @PutMapping(value = "updateOrder")
     public OrderDto updateOrder(@RequestBody OrderDto orderDto) {
-        return new OrderDto(1L);
+        return new OrderDto(1L, new User(), true, true, true);
     }
 
     @PostMapping(value = "createOrder", consumes = MediaType.APPLICATION_JSON_VALUE)
