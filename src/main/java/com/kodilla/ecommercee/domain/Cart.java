@@ -1,9 +1,9 @@
 package com.kodilla.ecommercee.domain;
 
-import com.kodilla.ecommercee.domian.Product;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
+import lombok.Setter;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
@@ -12,6 +12,7 @@ import java.util.List;
 @AllArgsConstructor
 @NoArgsConstructor
 @Getter
+@Setter
 @Table(name = "carts")
 @Entity
 public class Cart {
@@ -36,4 +37,6 @@ public class Cart {
             joinColumns = @JoinColumn(name = "Cart_id")
     )
     private List<Product> products;
+
+
 }
