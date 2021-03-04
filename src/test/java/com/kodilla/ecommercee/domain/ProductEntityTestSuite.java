@@ -1,6 +1,6 @@
 package com.kodilla.ecommercee.domain;
 
-import com.kodilla.ecommercee.repository.UserRepository;
+import com.kodilla.ecommercee.repository.ProductRepository;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -14,10 +14,37 @@ import org.springframework.transaction.annotation.Transactional;
 public class ProductEntityTestSuite {
 
     @Autowired
-    private UserRepository userRepository;
+    private ProductRepository productRepository;
 
     @Test
     public void testProductEntity() {
+        //Given
+
+        //When
+
+        //Then
+    }
+
+    @Test
+    public void testProductSave() {
+        //Given
+
+        //When
+
+        //Then
+    }
+
+    @Test
+    public void testProductUpdate() {
+        //Given
+
+        //When
+
+        //Then
+    }
+
+    @Test
+    public void testProductDelete() {
         //Given
 
         //When
