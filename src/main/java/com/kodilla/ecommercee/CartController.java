@@ -11,7 +11,6 @@ public class CartController {
 
     @PostMapping(value = "createNewCart")
     public void createNewCart() {
-
     }
 
     @GetMapping(value = "getProducts")
