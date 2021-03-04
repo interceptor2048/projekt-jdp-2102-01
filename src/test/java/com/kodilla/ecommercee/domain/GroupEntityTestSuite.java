@@ -88,7 +88,7 @@ public class GroupEntityTestSuite {
         groupRepository.save(group);
         long groupId = group.getId();
         long getIdFromComputer = computer.getGroup().getId();
-        long getIdFromPrinter = computer.getGroup().getId();
+        long getIdFromPrinter = printer.getGroup().getId();
         //Then
         Assert.assertNotEquals(0, groupId);
         Assert.assertEquals(groupId, getIdFromComputer);
@@ -102,25 +102,25 @@ public class GroupEntityTestSuite {
     public void testRelationsBetweenProductGroupDelete() {
         //Given
         Group group = new Group();
-        Product computer = new Product(1L,
+        Product computer2 = new Product(1L,
                 "name of first product",
                 "description of first product",
                 90.0);
-        Product printer = new Product(2L,
+        Product printer2 = new Product(2L,
                 "name of second product",
                 "description of second product",
                 290.0);
         //When
-        group.getProductList().add(computer);
-        group.getProductList().add(printer);
-        computer.setGroup(group);
-        printer.setGroup(group);
+        group.getProductList().add(computer2);
+        group.getProductList().add(printer2);
+        computer2.setGroup(group);
+        printer2.setGroup(group);
         groupRepository.save(group);
-        productRepository.save(computer);
-        productRepository.save(printer);
+        productRepository.save(computer2);
+        productRepository.save(printer2);
         long groupId = group.getId();
-        long getIdComputer = computer.getId();
-        long getIdPrinter = printer.getId();
+        long getIdComputer = computer2.getId();
+        long getIdPrinter = printer2.getId();
         productRepository.deleteById(getIdComputer);
         productRepository.deleteById(getIdPrinter);
         groupRepository.deleteById(groupId);
