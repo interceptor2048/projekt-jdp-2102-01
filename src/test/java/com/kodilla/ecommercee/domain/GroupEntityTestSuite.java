@@ -97,40 +97,5 @@ public class GroupEntityTestSuite {
         groupRepository.deleteById(groupId);
 
     }
-
-    @Test
-    public void testRelationsBetweenProductGroupDelete() {
-        //Given
-        Group group = new Group();
-        Product computer2 = new Product(1L,
-                "name of first product",
-                "description of first product",
-                90.0);
-        Product printer2 = new Product(2L,
-                "name of second product",
-                "description of second product",
-                290.0);
-        //When
-        group.getProductList().add(computer2);
-        group.getProductList().add(printer2);
-        computer2.setGroup(group);
-        printer2.setGroup(group);
-        groupRepository.save(group);
-        productRepository.save(computer2);
-        productRepository.save(printer2);
-        long groupId = group.getId();
-        long getIdComputer = computer2.getId();
-        long getIdPrinter = printer2.getId();
-        productRepository.deleteById(getIdComputer);
-        productRepository.deleteById(getIdPrinter);
-        groupRepository.deleteById(groupId);
-        Optional<Product> readComputer = productRepository.findById(getIdComputer);
-        Optional<Product> readPrinter = productRepository.findById(getIdPrinter);
-        Optional<Group> redGroup = groupRepository.findById(groupId);
-        //Then
-        Assert.assertFalse(readComputer.isPresent());
-        Assert.assertFalse(readPrinter.isPresent());
-        Assert.assertFalse(redGroup.isPresent());
-
-    }
 }
+
