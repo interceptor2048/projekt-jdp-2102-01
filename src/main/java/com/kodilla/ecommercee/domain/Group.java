@@ -1,6 +1,5 @@
 package com.kodilla.ecommercee.domain;
 
-import com.kodilla.ecommercee.domian.Product;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -32,4 +31,9 @@ public class Group {
     )
     private List<Product> productList;
 
+    public Group(@NotNull Long id, String groupName) {
+
+        this.id = id;
+        this.groupName = groupName;
+    }
 }
