@@ -22,7 +22,7 @@ public class CartEntityTestSuite {
     private CartRepository cartRepository;
 
     @Test
-    public void testCartSaveAndFindAll() {
+    public void testCartEntityConnections() {
 
         //Given
         Product product1 = new Product(1L,

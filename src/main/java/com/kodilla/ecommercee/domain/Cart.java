@@ -37,6 +37,4 @@ public class Cart {
             joinColumns = @JoinColumn(name = "Cart_id")
     )
     private List<Product> products;
-
-
 }
