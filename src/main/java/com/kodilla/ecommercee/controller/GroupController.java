@@ -10,24 +10,23 @@ import java.util.List;
 @RequestMapping("/v1/group")
 public class GroupController {
 
-        @GetMapping
-        public List<GroupDto> getGroups() {
-            return new ArrayList<>();
-        }
-
-        @PostMapping
-        public void createGroup(@RequestBody GroupDto groupDto) {
-        }
-
-        @GetMapping("/{groupId}")
-        public GroupDto getGroup(@RequestBody GroupDto groupDto ) {
-            return new GroupDto(123, "First Group");
-        }
-
-        @PutMapping
-        public GroupDto updateGroup( GroupDto groupDto) {
-            return new GroupDto(123, "Test content");
-        }
-
+    @GetMapping
+    public List<GroupDto> getGroups() {
+        return new ArrayList<>();
     }
+
+    @PostMapping
+    public void createGroup(@RequestBody GroupDto groupDto) {
+    }
+
+    @GetMapping("/{groupId}")
+    public GroupDto getGroup(@RequestBody GroupDto groupDto) {
+        return new GroupDto(123, "First Group");
+    }
+
+    @PutMapping
+    public GroupDto updateGroup(GroupDto groupDto) {
+        return new GroupDto(123, "Test content");
+    }
+}
 
