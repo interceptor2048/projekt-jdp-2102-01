@@ -8,10 +8,10 @@ import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.junit4.SpringRunner;
 import org.springframework.transaction.annotation.Transactional;
 
-import static org.junit.Assert.assertEquals;
-
 import java.util.ArrayList;
 import java.util.List;
+
+import static org.junit.Assert.*;
 
 @SpringBootTest
 @Transactional
@@ -22,7 +22,7 @@ public class CartEntityTestSuite {
     private CartRepository cartRepository;
 
     @Test
-    public void testCartEntityConnections() {
+    public void testCartSaveAndFindAll() {
 
         //Given
         Product product1 = new Product(1L,
@@ -58,4 +58,38 @@ public class CartEntityTestSuite {
         assertEquals("description of second product",resultSecondProduct.getProductDescription());
         assertEquals(300.0, resultFirstProduct.getPrice()+resultSecondProduct.getPrice(),0);
     }
+
+    @Test
+    public void testFindById() {
+
+        //Given
+        User user = new User("Wojtek");
+        user.setUserKey(12345L);
+        Cart cart = new Cart(1L,user, new ArrayList<>());
+
+        //When
+        cartRepository.save(cart);
+        long id = cartRepository.findAll().get(0).getId();
+
+        //Then
+        assertTrue(cartRepository.findById(id).isPresent());
+    }
+
+    @Test
+    public void testDeleteById() {
+
+        //Given
+        User user = new User("Wojtek");
+        user.setUserKey(12345L);
+        Cart cart = new Cart(1L,user, new ArrayList<>());
+
+        //When
+        cartRepository.save(cart);
+        long id = cartRepository.findAll().get(0).getId();
+        cartRepository.deleteById(id);
+
+        //Then
+        assertFalse(cartRepository.findById(id).isPresent());
+    }
+
 }
