@@ -13,7 +13,10 @@ import java.util.Optional;
 public interface GroupRepository extends CrudRepository<Group, Long> {
 
     List<Group> findAll();
+
     Optional<Group> findById(Long id);
+
     Group save(Group group);
+
     void deleteById(Long id);
 }
