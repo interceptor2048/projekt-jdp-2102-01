@@ -54,4 +54,12 @@ public class Product {
         this.productDescription = productDescription;
         this.price = price;
     }
+
+    public Product(@NotNull Long id, @NotNull String productName, String productDescription, @NotNull Double price, Group group) {
+        this.id = id;
+        this.productName = productName;
+        this.productDescription = productDescription;
+        this.price = price;
+        this.group = group;
+    }
 }
