@@ -3,6 +3,7 @@ package com.kodilla.ecommercee.domain;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
+import lombok.Setter;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
@@ -10,6 +11,7 @@ import java.util.List;
 
 
 @Getter
+@Setter
 @AllArgsConstructor
 @NoArgsConstructor
 @Entity(name = "PRODUCTS")
@@ -51,5 +53,13 @@ public class Product {
         this.productName = productName;
         this.productDescription = productDescription;
         this.price = price;
+    }
+
+    public Product(@NotNull Long id, @NotNull String productName, String productDescription, @NotNull Double price, Group group) {
+        this.id = id;
+        this.productName = productName;
+        this.productDescription = productDescription;
+        this.price = price;
+        this.group = group;
     }
 }
