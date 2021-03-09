@@ -48,4 +48,11 @@ public class User{
     public User(@NotNull String userName) {
         this.userName = userName;
     }
+
+    public User(@NotNull Long id, @NotNull String userName, @NotNull boolean status, @NotNull Long userKey) {
+        this.id = id;
+        this.userName = userName;
+        this.status = status;
+        this.userKey = userKey;
+    }
 }

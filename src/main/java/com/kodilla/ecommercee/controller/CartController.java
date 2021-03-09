@@ -1,7 +1,6 @@
 package com.kodilla.ecommercee.controller;
 
 import com.kodilla.ecommercee.controller.exceptions.CartNotFoundException;
-import com.kodilla.ecommercee.controller.exceptions.ProductConflictException;
 import com.kodilla.ecommercee.domain.Cart;
 import com.kodilla.ecommercee.domain.Product;
 import com.kodilla.ecommercee.domain.dto.OrderDto;
@@ -26,6 +25,8 @@ public class CartController {
     ProductDbService productDbService;
     @Autowired
     ProductMapper productMapper;
+    @Autowired
+    OrderController orderController;
 
     @PostMapping(value = "createNewCart")
     public void createNewCart() {
@@ -33,18 +34,24 @@ public class CartController {
     }
 
     @GetMapping(value = "getProducts")
-    public List<ProductDto> getProducts(@RequestParam Long cartId)  {
+    public List<ProductDto> getProducts(@RequestParam Long cartId) {
         return productMapper.productDtoList(cartDbService.getCart(cartId).get().getProducts());
     }
 
     @PutMapping(value = "addToCart")
-    public List<Product>addProductToCart(@RequestParam Long cartId, @RequestParam Long productId) {
-       return cartDbService.getCart(cartId).get().getProducts();
+    public void addProductToCart(@RequestParam Long cartId, @RequestParam Long productId) throws CartNotFoundException {
+        Cart cart = cartDbService.getCart(cartId).orElseThrow(CartNotFoundException::new);
+        Product product = productDbService.getProductById(productId).get();
+        cart.getProducts().add(product);
+        cartDbService.saveCart(cart);
     }
 
     @PostMapping(value = "createOrder")
-    public void createOrder(@RequestBody OrderDto orderDto,@RequestParam Long cartId) {
-
+    public void createOrder(@RequestBody OrderDto orderDto, @RequestParam Long cartId) throws CartNotFoundException {
+        OrderDto theOrder = orderController.getOrder(orderDto.getId());
+        Cart cart = cartDbService.getCart(cartId).orElseThrow(CartNotFoundException::new);
+        cart.getProducts();
+        orderController.createOrder(theOrder);
     }
 
     @DeleteMapping(value = "deleteProduct")

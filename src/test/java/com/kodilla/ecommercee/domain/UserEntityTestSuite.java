@@ -1,6 +1,7 @@
 package com.kodilla.ecommercee.domain;
 
 import com.kodilla.ecommercee.repository.CartRepository;
+import com.kodilla.ecommercee.repository.UserRepository;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -16,15 +17,18 @@ import static org.junit.Assert.*;
 @SpringBootTest
 @Transactional
 @RunWith(SpringRunner.class)
-public class CartEntityTestSuite {
+public class UserEntityTestSuite {
+
+    @Autowired
+    private UserRepository userRepository;
 
     @Autowired
     private CartRepository cartRepository;
 
     @Test
-    public void testCartEntityConnections() {
-
+    public void testUserEntityConnections() {
         //Given
+
         Product product1 = new Product(1L,
                 "name of first product",
                 "description of first product",
@@ -35,28 +39,29 @@ public class CartEntityTestSuite {
                 "description of second product",
                 200.0);
 
-        //When
         List<Product> productList = new ArrayList<>();
         productList.add(product1);
         productList.add(product2);
 
         User user = new User("Wojtek");
         user.setUserKey(12345L);
+        userRepository.save(user);
 
         Cart cart = new Cart(1L,user, productList);
         cartRepository.save(cart);
 
-        //Then
-        Cart resultCart = cartRepository.findAll().get(0);
-        Product resultFirstProduct = resultCart.getProducts().get(0);
-        Product resultSecondProduct = resultCart.getProducts().get(1);
+        List<Cart> cartList = new ArrayList<>();
+        cartList.add(cart);
 
-        assertEquals("Wojtek",resultCart.getUser().getUserName());
-        assertEquals(2,resultCart.getProducts().size());
+        user.setCarts(cartList);
 
-        assertEquals("name of first product",resultFirstProduct.getProductName());
-        assertEquals("description of second product",resultSecondProduct.getProductDescription());
-        assertEquals(300.0, resultFirstProduct.getPrice()+resultSecondProduct.getPrice(),0);
+        User resultUser = userRepository.findAll().get(0);
+
+        assertEquals(resultUser.getCarts().get(0).getProducts().get(0).getProductName(),"name of first product");
+        assertEquals(resultUser.getUserName(),"Wojtek");
+        assertEquals(resultUser.getCarts().size(),1);
+        assertEquals(resultUser.getCarts().get(0).getProducts().size(),2);
+        assertEquals(resultUser.getUserKey(),12345L,0);
     }
 
     @Test
@@ -65,14 +70,21 @@ public class CartEntityTestSuite {
         //Given
         User user = new User("Wojtek");
         user.setUserKey(12345L);
+        userRepository.save(user);
+
         Cart cart = new Cart(1L,user, new ArrayList<>());
+        cartRepository.save(cart);
+
+        List<Cart> cartList = new ArrayList<>();
+        cartList.add(cart);
+
+        user.setCarts(cartList);
 
         //When
-        cartRepository.save(cart);
-        long id = cartRepository.findAll().get(0).getId();
+        long id = userRepository.findAll().get(0).getId();
 
         //Then
-        assertTrue(cartRepository.findById(id).isPresent());
+        assertTrue(userRepository.findById(id).isPresent());
     }
 
     @Test
@@ -81,15 +93,21 @@ public class CartEntityTestSuite {
         //Given
         User user = new User("Wojtek");
         user.setUserKey(12345L);
+        userRepository.save(user);
+
         Cart cart = new Cart(1L,user, new ArrayList<>());
+        cartRepository.save(cart);
+
+        List<Cart> cartList = new ArrayList<>();
+        cartList.add(cart);
+
+        user.setCarts(cartList);
 
         //When
-        cartRepository.save(cart);
-        long id = cartRepository.findAll().get(0).getId();
-        cartRepository.deleteById(id);
+        long id = userRepository.findAll().get(0).getId();
+        userRepository.deleteById(id);
 
         //Then
-        assertFalse(cartRepository.findById(id).isPresent());
+        assertFalse(userRepository.findById(id).isPresent());
     }
-
 }
