@@ -13,22 +13,25 @@ import java.util.Optional;
 @RequiredArgsConstructor
 public class CartDbService {
     @Autowired
-    private final CartRepository cartRepository;
+    private final CartRepository repository;
 
-    public List<Cart>getAllCarts(){
-        return cartRepository.findAll();
+    public List<Cart> getAllCarts() {
+        return repository.findAll();
     }
 
-    public Optional<Cart> getCart(final Long id) {
-        return cartRepository.findById(id);
+    public Optional<Cart> getCart(final Long cartId) {
+        return repository.findById(cartId);
     }
 
-    public Cart saveCart(final Cart cart) {
-        return cartRepository.save(cart);
+    public Cart saveCart(Cart cart) {
+        return repository.save(cart);
     }
 
-    public void deleteCart(Long id) {
-        cartRepository.deleteById(id);
+    public void deleteCart(final Long cartId) {
+        repository.deleteById(cartId);
     }
 
+    public  void deleteOrder(final Long orderId){
+        //orderRepository.deleteById(orderId);
+    }
 }
