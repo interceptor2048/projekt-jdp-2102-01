@@ -47,4 +47,3 @@ public class GroupController {
         return mapper.mapToGroupDto(savedGroup);
     }
 }
-
