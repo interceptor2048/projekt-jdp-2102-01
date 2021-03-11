@@ -6,6 +6,7 @@ import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
+import org.aspectj.weaver.ast.Or;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
@@ -39,5 +40,10 @@ public class Cart {
             joinColumns = @JoinColumn(name = "Cart_id")
     )
     private List<Product> products;
+
+    /*@ManyToMany(
+            targetEntity = Order.class,
+            cascade = CascadeType.ALL)
+    private List<Order> orders;*/
 
 }
