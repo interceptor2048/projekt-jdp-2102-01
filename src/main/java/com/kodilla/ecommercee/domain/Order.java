@@ -15,7 +15,7 @@ import java.util.List;
 @Getter
 public class Order {
     @Id
-    @GeneratedValue
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @NotNull
     @Column(name = "ID", unique = true)
     private Long id;
@@ -40,6 +40,9 @@ public class Order {
 
     @Column(name = "is_sent")
     private boolean sent;
+
+    @Column(name = "Shipment_to")
+    private String shipmentAddress;
 
     public Order(@NotNull Long id, User user) {
         this.id = id;

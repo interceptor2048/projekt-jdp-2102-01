@@ -17,7 +17,7 @@ import java.util.List;
 @Table(name = "Users")
 public class User{
     @Id
-    @GeneratedValue
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @NotNull
     @Column(name = "User_id")
     private Long id;
@@ -33,6 +33,15 @@ public class User{
     @NotNull
     @Column(name = "userKey")
     private Long userKey;
+
+    @Column(name = "e-mail")
+    private String email;
+
+    @Column(name = "phone_number")
+    private String phoneNumber;
+
+    @Column(name = "address")
+    private String address;
 
     @OneToMany(
             targetEntity = Order.class,

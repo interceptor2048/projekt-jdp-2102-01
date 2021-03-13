@@ -1,12 +1,9 @@
 package com.kodilla.ecommercee.domain;
 
-import com.kodilla.ecommercee.domain.dto.ProductDto;
-import com.kodilla.ecommercee.domain.dto.UserDto;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
-import org.aspectj.weaver.ast.Or;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
@@ -20,7 +17,7 @@ import java.util.List;
 @Entity
 public class Cart {
     @Id
-    @GeneratedValue
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @NotNull
     @Column(name = "Cart_id")
     private Long id;
