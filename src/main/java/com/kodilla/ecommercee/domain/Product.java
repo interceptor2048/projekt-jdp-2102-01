@@ -18,7 +18,7 @@ import java.util.List;
 public class Product {
     @Id
     @NotNull
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @GeneratedValue
     @Column(name = "id")
     private Long id;
 
@@ -47,6 +47,9 @@ public class Product {
             fetch = FetchType.LAZY
     )
     private List<OrderItem> orderItems;
+
+    @OneToMany(mappedBy = "product")
+    private List<OrderItems>items;
 
     public Product(@NotNull Long id, @NotNull String productName, String productDescription, @NotNull Double price) {
         this.id = id;
