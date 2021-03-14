@@ -11,7 +11,7 @@ import javax.validation.constraints.NotNull;
 @AllArgsConstructor
 @NoArgsConstructor
 @Entity(name = "orderItems")
-public class OrderItems {
+public class OrderItem {
 
     @Id
     @GeneratedValue
@@ -27,7 +27,7 @@ public class OrderItems {
     @JoinColumn(name = "orderId")
     private Order order;
 
-    public OrderItems(Product product, Order order) {
+    public OrderItem(Product product, Order order) {
         this.product = product;
         this.order = order;
     }

@@ -7,7 +7,6 @@ import lombok.Setter;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
-import java.util.ArrayList;
 import java.util.List;
 
 @Entity(name = "orders")
@@ -27,12 +26,12 @@ public class Order {
     private User user;
 
     @OneToMany(
-            targetEntity = OrderItems.class,
+            targetEntity = OrderItem.class,
             mappedBy = "order",
             cascade = CascadeType.ALL,
             fetch = FetchType.LAZY
     )
-    private List<OrderItems> orderItems;
+    private List<OrderItem> orderItems;
 
     @Column(name = "is_payment_confirmed")
     private boolean paid = false;
@@ -43,7 +42,7 @@ public class Order {
     @Column(name = "is_sent")
     private boolean sent = false;
 
-    public Order(User user, List<OrderItems> orderItems) {
+    public Order(User user, List<OrderItem> orderItems) {
         this.user = user;
         this.orderItems = orderItems;
     }

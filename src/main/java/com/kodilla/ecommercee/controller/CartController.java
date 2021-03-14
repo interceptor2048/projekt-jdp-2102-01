@@ -1,25 +1,21 @@
 
 package com.kodilla.ecommercee.controller;
 
-import com.kodilla.ecommercee.controller.OrderController;
 import com.kodilla.ecommercee.controller.exceptions.CartNotFoundException;
 import com.kodilla.ecommercee.controller.exceptions.ProductNotFoundException;
 import com.kodilla.ecommercee.controller.exceptions.UserNotFoundException;
 import com.kodilla.ecommercee.domain.*;
-import com.kodilla.ecommercee.domain.dto.OrderDto;
 import com.kodilla.ecommercee.domain.dto.ProductDto;
 import com.kodilla.ecommercee.mapper.CartMapper;
 import com.kodilla.ecommercee.mapper.OrderMapper;
 import com.kodilla.ecommercee.mapper.ProductMapper;
-import com.kodilla.ecommercee.mapper.UserMapper;
 import com.kodilla.ecommercee.service.CartDbService;
+import com.kodilla.ecommercee.service.OrderItemsDbService;
 import com.kodilla.ecommercee.service.ProductDbService;
 import com.kodilla.ecommercee.service.UserDbService;
-import org.aspectj.weaver.ast.Or;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.ArrayList;
 import java.util.List;
 
 import static java.util.stream.Collectors.toList;
@@ -41,6 +37,8 @@ public class CartController {
     OrderMapper orderMapper;
     @Autowired
     UserDbService userDbService;
+    @Autowired
+    OrderItemsDbService orderItemsDbService;
 
     @PostMapping(value = "createNewCart")
     public void createNewCart() {
@@ -65,9 +63,10 @@ public class CartController {
         Order theOrder = new Order();
         Cart cart = cartDbService.getCart(cartId).orElseThrow(CartNotFoundException::new);
         User user = userDbService.getUser(userId).orElseThrow(UserNotFoundException::new);
-        List<OrderItems> orderItemsList = cart.getProducts().stream()
-                .map(product -> new OrderItems(product,theOrder)).collect(toList());
-        theOrder.setOrderItems(orderItemsList);
+
+        List<OrderItem> orderItemList = cart.getProducts().stream()
+                .map(product -> new OrderItem(product,theOrder)).collect(toList());
+        theOrder.setOrderItems(orderItemList);
         theOrder.setUser(user);
         orderController.createOrder(orderMapper.mapToOrderDto(theOrder));
     }

@@ -30,8 +30,4 @@ public class CartDbService {
     public void deleteCart(final Long cartId) {
         repository.deleteById(cartId);
     }
-
-    public  void deleteOrder(final Long orderId){
-        //orderRepository.deleteById(orderId);
-    }
 }
