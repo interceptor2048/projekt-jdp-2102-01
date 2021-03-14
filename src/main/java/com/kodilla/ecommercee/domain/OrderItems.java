@@ -1,14 +1,11 @@
 package com.kodilla.ecommercee.domain;
 
-import com.kodilla.ecommercee.domain.Product;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 
-import javax.persistence.Entity;
-import javax.persistence.Id;
-import javax.persistence.JoinColumn;
-import javax.persistence.ManyToOne;
+import javax.persistence.*;
+import javax.validation.constraints.NotNull;
 
 @Getter
 @AllArgsConstructor
@@ -16,10 +13,14 @@ import javax.persistence.ManyToOne;
 @Entity(name = "orderItems")
 public class OrderItems {
     @Id
+    @GeneratedValue
+    @NotNull
+
     private Long id;
 
     @ManyToOne
     @JoinColumn(name = "productId")
+    @GeneratedValue(strategy = GenerationType.AUTO)
     private Product product;
 
     @ManyToOne
