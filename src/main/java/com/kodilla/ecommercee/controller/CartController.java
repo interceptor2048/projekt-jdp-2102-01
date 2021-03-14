@@ -37,8 +37,6 @@ public class CartController {
     OrderMapper orderMapper;
     @Autowired
     UserDbService userDbService;
-    @Autowired
-    OrderItemsDbService orderItemsDbService;
 
     @PostMapping(value = "createNewCart")
     public void createNewCart() {
