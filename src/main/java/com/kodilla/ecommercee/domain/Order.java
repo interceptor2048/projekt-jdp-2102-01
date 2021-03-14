@@ -3,6 +3,7 @@ package com.kodilla.ecommercee.domain;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
+import lombok.Setter;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
@@ -13,6 +14,7 @@ import java.util.List;
 @AllArgsConstructor
 @NoArgsConstructor
 @Getter
+@Setter
 public class Order {
     @Id
     @GeneratedValue
@@ -30,20 +32,20 @@ public class Order {
             cascade = CascadeType.ALL,
             fetch = FetchType.LAZY
     )
-    private List<OrderItems> orderItems= new ArrayList<>();
+    private List<OrderItems> orderItems;
 
     @Column(name = "is_payment_confirmed")
-    private boolean paid;
+    private boolean paid = false;
 
     @Column(name = "is_verified")
-    private boolean verified;
+    private boolean verified = false;
 
     @Column(name = "is_sent")
-    private boolean sent;
+    private boolean sent = false;
 
-    public Order(@NotNull Long id, User user) {
-        this.id = id;
+    public Order(User user, List<OrderItems> orderItems) {
         this.user = user;
+        this.orderItems = orderItems;
     }
 
     public Order(@NotNull Long id, User user, boolean paid, boolean verified, boolean sent) {

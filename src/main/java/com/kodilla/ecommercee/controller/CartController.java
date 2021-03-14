@@ -4,18 +4,25 @@ package com.kodilla.ecommercee.controller;
 import com.kodilla.ecommercee.controller.OrderController;
 import com.kodilla.ecommercee.controller.exceptions.CartNotFoundException;
 import com.kodilla.ecommercee.controller.exceptions.ProductNotFoundException;
-import com.kodilla.ecommercee.domain.Cart;
-import com.kodilla.ecommercee.domain.Product;
+import com.kodilla.ecommercee.controller.exceptions.UserNotFoundException;
+import com.kodilla.ecommercee.domain.*;
 import com.kodilla.ecommercee.domain.dto.OrderDto;
 import com.kodilla.ecommercee.domain.dto.ProductDto;
 import com.kodilla.ecommercee.mapper.CartMapper;
+import com.kodilla.ecommercee.mapper.OrderMapper;
 import com.kodilla.ecommercee.mapper.ProductMapper;
+import com.kodilla.ecommercee.mapper.UserMapper;
 import com.kodilla.ecommercee.service.CartDbService;
 import com.kodilla.ecommercee.service.ProductDbService;
+import com.kodilla.ecommercee.service.UserDbService;
+import org.aspectj.weaver.ast.Or;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.ArrayList;
 import java.util.List;
+
+import static java.util.stream.Collectors.toList;
 
 @RestController
 @RequestMapping("/v1/cart")
@@ -30,6 +37,10 @@ public class CartController {
     ProductMapper productMapper;
     @Autowired
     OrderController orderController;
+    @Autowired
+    OrderMapper orderMapper;
+    @Autowired
+    UserDbService userDbService;
 
     @PostMapping(value = "createNewCart")
     public void createNewCart() {
@@ -50,11 +61,15 @@ public class CartController {
     }
 
     @PostMapping(value = "createOrder")
-    public void createOrder(@RequestBody OrderDto orderDto, @RequestParam Long cartId) throws CartNotFoundException {
-        OrderDto theOrder = orderController.getOrder(orderDto.getId());
+    public void createOrder(@RequestParam Long userId, @RequestParam Long cartId) throws Exception {
+        Order theOrder = new Order();
         Cart cart = cartDbService.getCart(cartId).orElseThrow(CartNotFoundException::new);
-        cart.getProducts();
-        orderController.createOrder(theOrder);
+        User user = userDbService.getUser(userId).orElseThrow(UserNotFoundException::new);
+        List<OrderItems> orderItemsList = cart.getProducts().stream()
+                .map(product -> new OrderItems(product,theOrder)).collect(toList());
+        theOrder.setOrderItems(orderItemsList);
+        theOrder.setUser(user);
+        orderController.createOrder(orderMapper.mapToOrderDto(theOrder));
     }
 
     @DeleteMapping(value = "deleteProduct")

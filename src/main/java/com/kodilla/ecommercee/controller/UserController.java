@@ -15,7 +15,7 @@ import java.util.Random;
 
 @RestController
 @RequestMapping("/v1/user")
-public class UserController{
+public class UserController {
     
     private final UserMapper mapper;
     private final UserDbService service;
