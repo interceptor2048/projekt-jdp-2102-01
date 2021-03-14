@@ -1,7 +1,7 @@
 package com.kodilla.ecommercee.service;
 
 import com.kodilla.ecommercee.domain.OrderItem;
-import com.kodilla.ecommercee.repository.OrderItemsRepository;
+import com.kodilla.ecommercee.repository.OrderItemRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -11,9 +11,9 @@ import java.util.Optional;
 
 @Service
 @RequiredArgsConstructor
-public class OrderItemsDbService {
+public class OrderItemDbService {
     @Autowired
-    private final OrderItemsRepository repository;
+    private final OrderItemRepository repository;
 
     public List<OrderItem> getAllOrderItems() {
         return repository.findAll();

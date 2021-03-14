@@ -49,7 +49,7 @@ public class Product {
     private List<OrderItem> orderItems;
 
     @OneToMany(mappedBy = "product")
-    private List<OrderItems>items;
+    private List<OrderItem>items;
 
     public Product(@NotNull Long id, @NotNull String productName, String productDescription, @NotNull Double price) {
         this.id = id;

@@ -10,7 +10,6 @@ import com.kodilla.ecommercee.mapper.CartMapper;
 import com.kodilla.ecommercee.mapper.OrderMapper;
 import com.kodilla.ecommercee.mapper.ProductMapper;
 import com.kodilla.ecommercee.service.CartDbService;
-import com.kodilla.ecommercee.service.OrderItemsDbService;
 import com.kodilla.ecommercee.service.ProductDbService;
 import com.kodilla.ecommercee.service.UserDbService;
 import org.springframework.beans.factory.annotation.Autowired;
