@@ -3,6 +3,7 @@ package com.kodilla.ecommercee.controller;
 
 import com.kodilla.ecommercee.controller.OrderController;
 import com.kodilla.ecommercee.controller.exceptions.CartNotFoundException;
+import com.kodilla.ecommercee.controller.exceptions.ProductNotFoundException;
 import com.kodilla.ecommercee.domain.Cart;
 import com.kodilla.ecommercee.domain.Product;
 import com.kodilla.ecommercee.domain.dto.OrderDto;
@@ -57,8 +58,8 @@ public class CartController {
     }
 
     @DeleteMapping(value = "deleteProduct")
-    public void deleteProduct(@RequestParam Long cartId, @RequestParam Long productId) {
-        cartDbService.deleteCart(cartId);
+    public void deleteProduct(@RequestParam Long cartId, @RequestParam Long productId) throws Exception{
+        Product product = productDbService.getProductById(productId).orElseThrow(ProductNotFoundException::new);
+        cartDbService.getCart(cartId).orElseThrow(CartNotFoundException::new).getProducts().remove(product);
     }
-
 }
