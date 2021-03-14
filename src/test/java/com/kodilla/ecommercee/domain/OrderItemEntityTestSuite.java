@@ -20,7 +20,7 @@ import static org.junit.Assert.assertTrue;
 @SpringBootTest
 @Transactional
 @RunWith(SpringRunner.class)
-public class OrderItemsEntityTestSuite {
+public class OrderItemEntityTestSuite {
     @Autowired
     OrderRepository orderRepository;
     @Autowired
@@ -38,9 +38,9 @@ public class OrderItemsEntityTestSuite {
         productRepository.save(product2);
 
         //When
-        OrderItems orderItems1 = new OrderItems();
+        OrderItem orderItems1 = new OrderItem();
         orderItemRepository.save(orderItems1);
-        OrderItems orderItems2 = new OrderItems();
+        OrderItem orderItems2 = new OrderItem();
         orderItemRepository.save(orderItems2);
 
         Product resultProduct1 = orderItemRepository.findAll().get(0).getProduct();
@@ -57,14 +57,14 @@ public class OrderItemsEntityTestSuite {
     @Test
     public void testSaveOrderItem() {
         //Given
-        OrderItems orderItem = new OrderItems();
+        OrderItem orderItem = new OrderItem();
 
         //When
         orderItemRepository.save(orderItem);
 
         //Then
         Long id = orderItem.getId();
-        Optional<OrderItems> findOrderItem = orderItemRepository.findById(id);
+        Optional<OrderItem> findOrderItem = orderItemRepository.findById(id);
         assertTrue(findOrderItem.isPresent());
 
         //CleanUp
@@ -72,13 +72,13 @@ public class OrderItemsEntityTestSuite {
     }
 
     @Test
-    public void testFindAllOrderItems() {
+    public void testFindAllOrderItem() {
         //Given
-        OrderItems orderItem1 = new OrderItems();
-        OrderItems orderItem2 = new OrderItems();
-        OrderItems orderItem3 = new OrderItems();
-        OrderItems orderItem4 = new OrderItems();
-        OrderItems orderItem5 = new OrderItems();
+        OrderItem orderItem1 = new OrderItem();
+        OrderItem orderItem2 = new OrderItem();
+        OrderItem orderItem3 = new OrderItem();
+        OrderItem orderItem4 = new OrderItem();
+        OrderItem orderItem5 = new OrderItem();
 
         //When
         orderItemRepository.save(orderItem1);
@@ -86,7 +86,7 @@ public class OrderItemsEntityTestSuite {
         orderItemRepository.save(orderItem3);
         orderItemRepository.save(orderItem4);
         orderItemRepository.save(orderItem5);
-        List<OrderItems> orderItemsList = orderItemRepository.findAll();
+        List<OrderItem> orderItemsList = orderItemRepository.findAll();
 
         //Then
         assertEquals(5, orderItemsList.size());
@@ -98,7 +98,7 @@ public class OrderItemsEntityTestSuite {
     @Test
     public void testFindOrderItemById() {
         //Given
-        OrderItems orderItem = new OrderItems();
+        OrderItem orderItem = new OrderItem();
 
         //When
         orderItemRepository.save(orderItem);
