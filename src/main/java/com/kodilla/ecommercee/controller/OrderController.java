@@ -6,6 +6,7 @@ import com.kodilla.ecommercee.domain.dto.OrderDto;
 import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.ArrayList;
 import java.util.LinkedList;
 import java.util.List;
 
@@ -15,8 +16,8 @@ import java.util.List;
 public class OrderController {
 
     @GetMapping(value = "getOrders")
-    public List<OrderDto> getOrders() {
-        return new LinkedList<>();
+    public ArrayList<OrderDto> getOrders() {
+        return new ArrayList<>();
     }
 
     @GetMapping(value = "getOrder")
