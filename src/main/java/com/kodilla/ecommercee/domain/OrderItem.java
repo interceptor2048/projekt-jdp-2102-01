@@ -11,11 +11,12 @@ import javax.validation.constraints.NotNull;
 @AllArgsConstructor
 @NoArgsConstructor
 @Entity(name = "orderItems")
-public class OrderItems {
+public class OrderItem {
+
     @Id
     @GeneratedValue
     @NotNull
-
+    @Column(name = "id", unique = true)
     private Long id;
 
     @ManyToOne
@@ -26,4 +27,9 @@ public class OrderItems {
     @ManyToOne
     @JoinColumn(name = "orderId")
     private Order order;
+
+    public OrderItem(Product product, Order order) {
+        this.product = product;
+        this.order = order;
+    }
 }

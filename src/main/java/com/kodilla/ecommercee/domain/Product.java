@@ -41,15 +41,15 @@ public class Product {
     private Group group;
 
     @OneToMany(
-            targetEntity = OrderItems.class,
+            targetEntity = OrderItem.class,
             mappedBy = "product",
             cascade = CascadeType.ALL,
             fetch = FetchType.LAZY
     )
-    private List<OrderItems> orderItems;
+    private List<OrderItem> orderItems;
 
     @OneToMany(mappedBy = "product")
-    private List<OrderItems>items;
+    private List<OrderItem>items;
 
     public Product(@NotNull Long id, @NotNull String productName, String productDescription, @NotNull Double price) {
         this.id = id;
