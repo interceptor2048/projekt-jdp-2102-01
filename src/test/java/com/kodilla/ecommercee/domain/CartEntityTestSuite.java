@@ -44,8 +44,8 @@ public class CartEntityTestSuite {
 
         //When
         List<Product> productList = new ArrayList<>();
-        productList.add(productRepository.findById(product1.getId()).get());
-        productList.add(productRepository.findById(product2.getId()).get());
+        productList.add(product1);
+        productList.add(product2);
 
         User user = new User("Wojtek");
         user.setUserKey(12345L);
