@@ -2,19 +2,20 @@ package com.kodilla.ecommercee.mapper;
 
 import com.kodilla.ecommercee.domain.Order;
 import com.kodilla.ecommercee.domain.dto.OrderDto;
+import org.springframework.stereotype.Service;
 
-import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
 
+@Service
 public class OrderMapper {
     public Order mapToOrder(final OrderDto orderDto) {
         return new Order(
                 orderDto.getId(),
                 orderDto.getUserId(),
+                orderDto.isPaid(),
                 orderDto.isVerified(),
-                orderDto.isSent(),
-                orderDto.isPaid()
+                orderDto.isSent()
         );
     }
 
@@ -22,19 +23,13 @@ public class OrderMapper {
         return new OrderDto(
                 order.getId(),
                 order.getUser(),
+                order.isPaid(),
                 order.isVerified(),
-                order.isSent(),
-                order.isPaid()
+                order.isSent()
         );
     }
 
-    public List<Order> orderDtoListMapToOrderList(List<OrderDto> orderDtoList) {
-        return orderDtoList.stream()
-                .map(this::mapToOrder)
-                .collect(Collectors.toList());
-    }
-
-    public List<OrderDto> orderListMapToOrderDtoList(List<Order> orderList) {
+    public List<OrderDto> mapToOrderDtoList(final List<Order> orderList) {
         return orderList.stream()
                 .map(this::mapToOrderDto)
                 .collect(Collectors.toList());
