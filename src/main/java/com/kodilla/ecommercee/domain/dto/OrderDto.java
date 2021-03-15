@@ -12,6 +12,6 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 public class OrderDto {
     private Long id;
-    private User userId;
+    private User user;
     private boolean paid, verified, sent;
 }
