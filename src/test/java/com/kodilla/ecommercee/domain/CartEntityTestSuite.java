@@ -1,6 +1,7 @@
 package com.kodilla.ecommercee.domain;
 
 import com.kodilla.ecommercee.repository.CartRepository;
+import com.kodilla.ecommercee.repository.ProductRepository;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -21,6 +22,9 @@ public class CartEntityTestSuite {
     @Autowired
     private CartRepository cartRepository;
 
+    @Autowired
+    private ProductRepository productRepository;
+
     @Test
     public void testCartEntityConnections() {
 
@@ -35,10 +39,13 @@ public class CartEntityTestSuite {
                 "description of second product",
                 200.0);
 
+        productRepository.save(product1);
+        productRepository.save(product2);
+
         //When
         List<Product> productList = new ArrayList<>();
-        productList.add(product1);
-        productList.add(product2);
+        productList.add(productRepository.findAll().get(0));
+        productList.add(productRepository.findAll().get(1));
 
         User user = new User("Wojtek");
         user.setUserKey(12345L);
@@ -46,7 +53,7 @@ public class CartEntityTestSuite {
         user.setEmail("SomeMail@mail");
         user.setPhoneNumber("118913");
 
-        Cart cart = new Cart(1L,user, productList);
+        Cart cart = new Cart(1L, user, productList);
         cartRepository.save(cart);
 
         //Then

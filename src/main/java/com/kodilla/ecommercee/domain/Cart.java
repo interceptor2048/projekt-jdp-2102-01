@@ -37,10 +37,4 @@ public class Cart {
             joinColumns = @JoinColumn(name = "Cart_id")
     )
     private List<Product> products;
-
-    /*@ManyToMany(
-            targetEntity = Order.class,
-            cascade = CascadeType.ALL)
-    private List<Order> orders;*/
-
 }
