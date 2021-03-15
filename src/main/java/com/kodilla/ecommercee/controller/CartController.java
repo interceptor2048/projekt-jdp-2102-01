@@ -59,11 +59,6 @@ public class CartController {
     public void createOrder(@RequestParam Long userId, @RequestParam Long cartId) throws Exception {
         Order theOrder = new Order();
         Cart cart = cartDbService.getCart(cartId).orElseThrow(CartNotFoundException::new);
-<<<<<<< HEAD
-        cart.getProducts();
-        orderController.createOrder(theOrder);
-
-=======
         User user = userDbService.getUser(userId).orElseThrow(UserNotFoundException::new);
 
         List<OrderItem> orderItemList = cart.getProducts().stream()
@@ -71,7 +66,6 @@ public class CartController {
         theOrder.setOrderItems(orderItemList);
         theOrder.setUser(user);
         orderController.createOrder(orderMapper.mapToOrderDto(theOrder));
->>>>>>> master
     }
 
     @DeleteMapping(value = "deleteProduct")
