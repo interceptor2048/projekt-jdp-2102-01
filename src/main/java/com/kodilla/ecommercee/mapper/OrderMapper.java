@@ -12,7 +12,7 @@ public class OrderMapper {
     public Order mapToOrder(final OrderDto orderDto) {
         return new Order(
                 orderDto.getId(),
-                orderDto.getUserId(),
+                orderDto.getUser(),
                 orderDto.isPaid(),
                 orderDto.isVerified(),
                 orderDto.isSent()
