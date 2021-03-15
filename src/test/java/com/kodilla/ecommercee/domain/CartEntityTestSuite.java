@@ -42,6 +42,9 @@ public class CartEntityTestSuite {
 
         User user = new User("Wojtek");
         user.setUserKey(12345L);
+        user.setAddress("Somewhere in the world");
+        user.setEmail("SomeMail@mail");
+        user.setPhoneNumber("118913");
 
         Cart cart = new Cart(1L,user, productList);
         cartRepository.save(cart);
@@ -65,6 +68,9 @@ public class CartEntityTestSuite {
         //Given
         User user = new User("Wojtek");
         user.setUserKey(12345L);
+        user.setAddress("Somewhere in the world");
+        user.setEmail("SomeMail@mail");
+        user.setPhoneNumber("118913");
         Cart cart = new Cart(1L,user, new ArrayList<>());
 
         //When
@@ -81,6 +87,9 @@ public class CartEntityTestSuite {
         //Given
         User user = new User("Wojtek");
         user.setUserKey(12345L);
+        user.setAddress("Somewhere in the world");
+        user.setEmail("SomeMail@mail");
+        user.setPhoneNumber("118913");
         Cart cart = new Cart(1L,user, new ArrayList<>());
 
         //When
