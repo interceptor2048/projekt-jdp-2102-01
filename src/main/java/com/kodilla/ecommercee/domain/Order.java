@@ -42,6 +42,10 @@ public class Order {
     @Column(name = "is_sent")
     private boolean sent = false;
 
+    @Column(name = "Shipment_to")
+    @NotNull
+    private String shipmentAddress;
+
     public Order(User user, List<OrderItem> orderItems) {
         this.user = user;
         this.orderItems = orderItems;

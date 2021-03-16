@@ -45,6 +45,9 @@ public class UserEntityTestSuite {
 
         User user = new User("Wojtek");
         user.setUserKey(12345L);
+        user.setAddress("Somewhere in the world");
+        user.setEmail("SomeMail@mail");
+        user.setPhoneNumber("118913");
         userRepository.save(user);
 
         Cart cart = new Cart(1L,user, productList);
@@ -70,6 +73,9 @@ public class UserEntityTestSuite {
         //Given
         User user = new User("Wojtek");
         user.setUserKey(12345L);
+        user.setAddress("Somewhere in the world");
+        user.setEmail("SomeMail@mail");
+        user.setPhoneNumber("118913");
         userRepository.save(user);
 
         Cart cart = new Cart(1L,user, new ArrayList<>());
@@ -93,6 +99,9 @@ public class UserEntityTestSuite {
         //Given
         User user = new User("Wojtek");
         user.setUserKey(12345L);
+        user.setAddress("Somewhere in the world");
+        user.setEmail("SomeMail@mail");
+        user.setPhoneNumber("118913");
         userRepository.save(user);
 
         Cart cart = new Cart(1L,user, new ArrayList<>());
