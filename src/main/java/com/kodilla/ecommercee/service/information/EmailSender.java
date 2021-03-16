@@ -11,8 +11,8 @@ import org.springframework.stereotype.Service;
 
 @RequiredArgsConstructor
 @Service
-public class EmailSender implements Notificators{
-    private final JavaMailSender javaMailSender;
+public class EmailSender implements Notificators {
+    public JavaMailSender javaMailSender;
 
     @Override
     public void notifyOrderCreated(Order order, User user) {
@@ -31,9 +31,10 @@ public class EmailSender implements Notificators{
             mailMessage.setText(message);
 
             javaMailSender.send(mailMessage);
-        } catch (MailException e){
+        } catch (MailException e) {
             System.out.println(e);
         }
+
         /*System.out.println("We have received order for:");
         for (OrderItem item : order.getOrderItems()) {
             System.out.println(item);
@@ -45,9 +46,9 @@ public class EmailSender implements Notificators{
     public void notifyOrderVerified(User user, Order order) {
         StringBuilder text = new StringBuilder();
         text.append(user.getUserName() + "  your order " + order.getId() + " has been verified. " +
-                        "\nPlease proceed with chosen payment method. " +
-                        "(If payement was already done please wait, we may need to process it at our side)" +
-                "\n The details of your order are:");
+                "\nPlease proceed with chosen payment method. " +
+                "(If payement was already done please wait, we may need to process it at our side)" +
+                "The details of your order are:");
         text.append(order.toString());
 
         String message = text.toString();
@@ -55,11 +56,11 @@ public class EmailSender implements Notificators{
         try {
             SimpleMailMessage mailMessage = new SimpleMailMessage();
             mailMessage.setTo(user.getEmail());
-            mailMessage.setSubject("order " + order.getId() + " has been verified");
+            mailMessage.setSubject("order " + order.getId() + "confirmed");
             mailMessage.setText(message);
 
             javaMailSender.send(mailMessage);
-        } catch (MailException e){
+        } catch (MailException e) {
             System.out.println(e);
         }
 
@@ -72,21 +73,14 @@ public class EmailSender implements Notificators{
 
     @Override
     public void notifyOrderPaid(User user, Order order) {
-        StringBuilder text = new StringBuilder();
-        text.append(user.getUserName() + " payment for your order " + order.getId() + " has been confirmed." +
-                "\n The details of your order are:");
-        text.append(order.toString());
-
-        String message = text.toString();
-
         try {
             SimpleMailMessage mailMessage = new SimpleMailMessage();
             mailMessage.setTo(user.getEmail());
-            mailMessage.setSubject("order " + order.getId() + " has been paid");
-            mailMessage.setText(message);
+            mailMessage.setSubject("payment received");
+            mailMessage.setText(user.getUserName() + " payment for your order " + order.getId() + " has been confirmed.");
 
             javaMailSender.send(mailMessage);
-        } catch (MailException e){
+        } catch (MailException e) {
             System.out.println(e);
         }
 
@@ -96,22 +90,18 @@ public class EmailSender implements Notificators{
 
     @Override
     public void notifyOrderSent(User user, Order order) {
-        StringBuilder text = new StringBuilder();
-        text.append(user.getUserName() + " your order " + order.getId() + " has been sent to \n" + user.getAddress() +".");
-
-        String message = text.toString();
-
         try {
             SimpleMailMessage mailMessage = new SimpleMailMessage();
             mailMessage.setTo(user.getEmail());
-            mailMessage.setSubject("order " + order.getId() + " has been paid");
-            mailMessage.setText(message);
+            mailMessage.setSubject("order " + order.getId() + "has been sent");
+            mailMessage.setText(user.getUserName() + " your order " + order.getId() + " has been sent to \n" + user.getAddress() + ".");
 
             javaMailSender.send(mailMessage);
-        } catch (MailException e){
+        } catch (MailException e) {
             System.out.println(e);
         }
 
-        //System.out.println(user.getUserName() + " your order " + order.getId() + " has been sent to \n" + user.getAddress() +".");
+        //System.out.println(user.getUserName() + " your order " + order.getId() + " has been sent to \n" + user.getAddress() + ".");
     }
 }
+
