@@ -2,7 +2,9 @@ package com.kodilla.ecommercee.service.information;
 
 import com.kodilla.ecommercee.domain.Order;
 import com.kodilla.ecommercee.domain.User;
+import org.springframework.stereotype.Service;
 
+@Service
 public class TextMessageSender implements Notificators {
     @Override
     public void notifyOrderCreated(Order order, User user) {
