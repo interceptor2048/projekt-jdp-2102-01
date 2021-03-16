@@ -9,9 +9,7 @@ import com.kodilla.ecommercee.domain.dto.ProductDto;
 import com.kodilla.ecommercee.mapper.CartMapper;
 import com.kodilla.ecommercee.mapper.OrderMapper;
 import com.kodilla.ecommercee.mapper.ProductMapper;
-import com.kodilla.ecommercee.service.CartDbService;
-import com.kodilla.ecommercee.service.ProductDbService;
-import com.kodilla.ecommercee.service.UserDbService;
+import com.kodilla.ecommercee.service.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
@@ -34,6 +32,8 @@ public class CartController {
     OrderController orderController;
     @Autowired
     OrderMapper orderMapper;
+    @Autowired
+    OrderItemDbService orderItemDbService;
     @Autowired
     UserDbService userDbService;
 
@@ -66,6 +66,7 @@ public class CartController {
         theOrder.setOrderItems(orderItemList);
         theOrder.setUser(user);
         orderController.createOrder(orderMapper.mapToOrderDto(theOrder));
+        orderItemList.forEach(orderItem -> {orderItemDbService.saveOrderItems(orderItem);});
     }
 
     @DeleteMapping(value = "deleteProduct")

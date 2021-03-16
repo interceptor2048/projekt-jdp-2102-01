@@ -27,9 +27,7 @@ public class Order {
 
     @OneToMany(
             targetEntity = OrderItem.class,
-            mappedBy = "order",
-            cascade = CascadeType.ALL,
-            fetch = FetchType.LAZY
+            mappedBy = "order"
     )
     private List<OrderItem> orderItems;
 
@@ -43,7 +41,6 @@ public class Order {
     private boolean sent = false;
 
     @Column(name = "Shipment_to")
-    @NotNull
     private String shipmentAddress;
 
     public Order(User user, List<OrderItem> orderItems) {
@@ -51,9 +48,10 @@ public class Order {
         this.orderItems = orderItems;
     }
 
-    public Order(@NotNull Long id, User user, boolean paid, boolean verified, boolean sent) {
+    public Order(@NotNull Long id, User user, List<OrderItem> orderItems, boolean paid, boolean verified, boolean sent) {
         this.id = id;
         this.user = user;
+        this.orderItems = orderItems;
         this.paid = paid;
         this.verified = verified;
         this.sent = sent;

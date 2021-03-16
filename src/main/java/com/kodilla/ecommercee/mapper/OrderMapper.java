@@ -13,6 +13,7 @@ public class OrderMapper {
         return new Order(
                 orderDto.getId(),
                 orderDto.getUser(),
+                orderDto.getOrderItemList(),
                 orderDto.isPaid(),
                 orderDto.isVerified(),
                 orderDto.isSent()
@@ -23,6 +24,7 @@ public class OrderMapper {
         return new OrderDto(
                 order.getId(),
                 order.getUser(),
+                order.getOrderItems(),
                 order.isPaid(),
                 order.isVerified(),
                 order.isSent()
