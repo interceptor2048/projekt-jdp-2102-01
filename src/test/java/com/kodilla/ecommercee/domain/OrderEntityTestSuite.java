@@ -8,6 +8,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.junit4.SpringRunner;
 import org.springframework.transaction.annotation.Transactional;
+
 import java.util.List;
 import java.util.Optional;
 
@@ -28,12 +29,20 @@ public class OrderEntityTestSuite {
         //Given
         User user1 = new User(1L, "User1", true, 1234L);
         User user2 = new User(2L, "User2", false, 2345L);
+        user1.setAddress("Somewhere in the world");
+        user1.setEmail("SomeMail@mail");
+        user1.setPhoneNumber("118913");
+        user2.setAddress("Somewhere in the world");
+        user2.setEmail("SomeMail@mail");
+        user2.setPhoneNumber("118913");
         userRepository.save(user1);
         userRepository.save(user2);
 
         //When
         Order order1 = new Order(111L, user2, true, true, true);
         Order order2 = new Order(222L, user1, true, true, true);
+        order1.setShipmentAddress("Somewhere in the world");
+        order2.setShipmentAddress("Somewhere in the world");
         orderRepository.save(order1);
         orderRepository.save(order2);
 
@@ -53,6 +62,7 @@ public class OrderEntityTestSuite {
     public void testSaveOrder() {
         //Given
         Order order = new Order();
+        order.setShipmentAddress("Somewhere in the world");
 
         //When
         orderRepository.save(order);
@@ -73,6 +83,10 @@ public class OrderEntityTestSuite {
         Order order2 = new Order();
         Order order3 = new Order();
         Order order4 = new Order();
+        order1.setShipmentAddress("Somewhere in the world");
+        order2.setShipmentAddress("Somewhere in the world");
+        order3.setShipmentAddress("Somewhere in the world");
+        order4.setShipmentAddress("Somewhere in the world");
 
         //When
         orderRepository.save(order1);
@@ -96,6 +110,10 @@ public class OrderEntityTestSuite {
         Order order2 = new Order();
         Order order3 = new Order();
         Order order4 = new Order();
+        order1.setShipmentAddress("Somewhere in the world");
+        order2.setShipmentAddress("Somewhere in the world");
+        order3.setShipmentAddress("Somewhere in the world");
+        order4.setShipmentAddress("Somewhere in the world");
 
         //When
         orderRepository.save(order1);
