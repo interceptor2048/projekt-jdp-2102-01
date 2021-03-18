@@ -1,8 +1,6 @@
 package com.kodilla.ecommercee.service.information;
 
 import com.kodilla.ecommercee.domain.Order;
-import com.kodilla.ecommercee.domain.OrderItem;
-import com.kodilla.ecommercee.domain.User;
 import lombok.RequiredArgsConstructor;
 import org.springframework.mail.MailException;
 import org.springframework.mail.SimpleMailMessage;
@@ -15,7 +13,7 @@ public class EmailSender implements Notificators {
     public JavaMailSender javaMailSender;
 
     @Override
-    public void notifyOrderCreated(Order order, User user) {
+    public void notifyOrderCreated(Order order) {
         StringBuilder text = new StringBuilder();
         text.append("We have received order for:");
         order.getOrderItems().forEach((t) ->
@@ -26,7 +24,7 @@ public class EmailSender implements Notificators {
 
         try {
             SimpleMailMessage mailMessage = new SimpleMailMessage();
-            mailMessage.setTo(user.getEmail());
+            mailMessage.setTo(order.getUser().getEmail());
             mailMessage.setSubject("new order " + order.getId());
             mailMessage.setText(message);
 
@@ -43,9 +41,9 @@ public class EmailSender implements Notificators {
     }
 
     @Override
-    public void notifyOrderVerified(User user, Order order) {
+    public void notifyOrderVerified(Order order) {
         StringBuilder text = new StringBuilder();
-        text.append(user.getUserName() + "  your order " + order.getId() + " has been verified. " +
+        text.append(order.getUser().getUserName() + "  your order " + order.getId() + " has been verified. " +
                 "\nPlease proceed with chosen payment method. " +
                 "(If payement was already done please wait, we may need to process it at our side)" +
                 "The details of your order are:");
@@ -55,7 +53,7 @@ public class EmailSender implements Notificators {
 
         try {
             SimpleMailMessage mailMessage = new SimpleMailMessage();
-            mailMessage.setTo(user.getEmail());
+            mailMessage.setTo(order.getUser().getEmail());
             mailMessage.setSubject("order " + order.getId() + "confirmed");
             mailMessage.setText(message);
 
@@ -72,12 +70,12 @@ public class EmailSender implements Notificators {
     }
 
     @Override
-    public void notifyOrderPaid(User user, Order order) {
+    public void notifyOrderPaid(Order order) {
         try {
             SimpleMailMessage mailMessage = new SimpleMailMessage();
-            mailMessage.setTo(user.getEmail());
+            mailMessage.setTo(order.getUser().getEmail());
             mailMessage.setSubject("payment received");
-            mailMessage.setText(user.getUserName() + " payment for your order " + order.getId() + " has been confirmed.");
+            mailMessage.setText(order.getUser().getUserName() + " payment for your order " + order.getId() + " has been confirmed.");
 
             javaMailSender.send(mailMessage);
         } catch (MailException e) {
@@ -89,12 +87,12 @@ public class EmailSender implements Notificators {
     }
 
     @Override
-    public void notifyOrderSent(User user, Order order) {
+    public void notifyOrderSent(Order order) {
         try {
             SimpleMailMessage mailMessage = new SimpleMailMessage();
-            mailMessage.setTo(user.getEmail());
+            mailMessage.setTo(order.getUser().getEmail());
             mailMessage.setSubject("order " + order.getId() + "has been sent");
-            mailMessage.setText(user.getUserName() + " your order " + order.getId() + " has been sent to \n" + user.getAddress() + ".");
+            mailMessage.setText(order.getUser().getUserName() + " your order " + order.getId() + " has been sent to \n" + order.getUser().getAddress() + ".");
 
             javaMailSender.send(mailMessage);
         } catch (MailException e) {
