@@ -66,7 +66,7 @@ public class CartController {
         theOrder.setOrderItems(orderItemList);
         theOrder.setUser(user);
         orderController.createOrder(orderMapper.mapToOrderDto(theOrder));
-        orderItemList.forEach(orderItem -> {orderItemDbService.saveOrderItems(orderItem);});
+        orderItemList.forEach(orderItem -> { orderItemDbService.saveOrderItems(orderItem); });
     }
 
     @DeleteMapping(value = "deleteProduct")

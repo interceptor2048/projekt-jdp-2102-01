@@ -27,6 +27,7 @@ public class OrderItemDbService {
         return repository.save(orderItem);
     }
 
-    public void deleteOrderItem(final Long orderItemId) { repository.deleteById(orderItemId);
-    }
+    public void deleteOrderItem(final Long orderItemId) { repository.deleteById(orderItemId); }
+
+    public List<OrderItem> getOrderItemsByOrderId(Long orderId) { return repository.findAllByOrder_Id(orderId); }
 }
