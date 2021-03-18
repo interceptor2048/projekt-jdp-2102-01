@@ -10,6 +10,7 @@ import com.kodilla.ecommercee.mapper.CartMapper;
 import com.kodilla.ecommercee.mapper.OrderMapper;
 import com.kodilla.ecommercee.mapper.ProductMapper;
 import com.kodilla.ecommercee.service.*;
+import com.kodilla.ecommercee.service.exception.NotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
@@ -70,7 +71,8 @@ public class CartController {
     }
 
     @DeleteMapping(value = "deleteProduct")
-    public void deleteProduct(@RequestParam Long cartId, @RequestParam Long productId) throws Exception{
+    public void deleteProduct(@RequestParam Long cartId, @RequestParam Long productId,@RequestParam Long userId, @RequestParam Long key) throws Exception, NotFoundException {
+        userDbService.validateGeneratedKey(userId,key);
         Product product = productDbService.getProductById(productId).orElseThrow(ProductNotFoundException::new);
         cartDbService.getCart(cartId).orElseThrow(CartNotFoundException::new).getProducts().remove(product);
     }

@@ -5,6 +5,8 @@ import com.kodilla.ecommercee.domain.Group;
 import com.kodilla.ecommercee.domain.dto.GroupDto;
 import com.kodilla.ecommercee.mapper.GroupMapper;
 import com.kodilla.ecommercee.service.GroupDbService;
+import com.kodilla.ecommercee.service.UserDbService;
+import com.kodilla.ecommercee.service.exception.NotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.*;
@@ -16,6 +18,9 @@ import java.util.List;
 public class GroupController {
     private final GroupMapper mapper;
     private final GroupDbService service;
+
+    @Autowired
+    UserDbService userDbService;
 
     @Autowired
     public GroupController(GroupMapper mapper, GroupDbService service) {
@@ -41,7 +46,8 @@ public class GroupController {
     }
 
     @PutMapping(value = "updateGroup")
-    public GroupDto updateGroup(GroupDto groupDto) {
+    public GroupDto updateGroup(@RequestBody GroupDto groupDto, @RequestParam Long userId, @RequestParam Long key) throws NotFoundException {
+        userDbService.validateGeneratedKey(userId,key);
         Group group = mapper.mapToGroup(groupDto);
         Group savedGroup = service.saveGroup(group);
         return mapper.mapToGroupDto(savedGroup);

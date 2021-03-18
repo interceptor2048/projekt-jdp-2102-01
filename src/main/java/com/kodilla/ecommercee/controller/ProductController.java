@@ -5,6 +5,8 @@ import com.kodilla.ecommercee.controller.exceptions.ProductNotFoundException;
 import com.kodilla.ecommercee.domain.dto.ProductDto;
 import com.kodilla.ecommercee.mapper.ProductMapper;
 import com.kodilla.ecommercee.service.ProductDbService;
+import com.kodilla.ecommercee.service.UserDbService;
+import com.kodilla.ecommercee.service.exception.NotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
@@ -18,6 +20,9 @@ public class ProductController {
 
     @Autowired
     ProductMapper productMapper;
+
+    @Autowired
+    UserDbService userDbService;
 
     @GetMapping(value = "getProducts")
     public List<ProductDto> getProducts() {
@@ -36,12 +41,14 @@ public class ProductController {
     }
 
     @PutMapping(value = "updateProduct")
-    public ProductDto updateProduct(@RequestBody ProductDto productDto) throws ProductConflictException {
+    public ProductDto updateProduct(@RequestBody ProductDto productDto,@RequestParam Long userId, @RequestParam Long key) throws ProductConflictException, NotFoundException {
+        userDbService.validateGeneratedKey(userId,key);
         return productMapper.mapProductDto(productDbService.saveProduct(productMapper.mapToProduct(productDto)));
     }
 
     @DeleteMapping(value = "deleteProduct")
-    public void deleteProduct(@RequestParam Long productId) {
+    public void deleteProduct(@RequestParam Long productId, @RequestParam Long userId, @RequestParam Long key ) throws NotFoundException {
+        userDbService.validateGeneratedKey(userId,key);
         productDbService.deleteProduct(productId);
 
     }
