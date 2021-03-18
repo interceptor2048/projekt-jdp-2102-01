@@ -6,9 +6,11 @@ import com.kodilla.ecommercee.domain.User;
 import com.kodilla.ecommercee.mapper.OrderMapper;
 import com.kodilla.ecommercee.repository.UserRepository;
 import com.kodilla.ecommercee.service.information.EmailSender;
+import org.springframework.stereotype.Service;
 
 import java.util.List;
 
+@Service
 public class OrderProcessor implements Observable {
 
     private List<User> users;
