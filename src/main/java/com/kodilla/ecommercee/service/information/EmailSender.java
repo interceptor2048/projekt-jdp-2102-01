@@ -1,6 +1,7 @@
 package com.kodilla.ecommercee.service.information;
 
 import com.kodilla.ecommercee.domain.Order;
+import com.kodilla.ecommercee.domain.User;
 import lombok.RequiredArgsConstructor;
 import org.springframework.mail.MailException;
 import org.springframework.mail.SimpleMailMessage;
@@ -100,6 +101,19 @@ public class EmailSender implements Notificators {
         }
 
         //System.out.println(user.getUserName() + " your order " + order.getId() + " has been sent to \n" + user.getAddress() + ".");
+    }
+
+    public void notifyAccountDeleted(User user) {
+        try {
+            SimpleMailMessage mailMessage = new SimpleMailMessage();
+            mailMessage.setTo(user.getEmail());
+            mailMessage.setSubject("Account deleted");
+            mailMessage.setText("Your account has been deleted.");
+
+            javaMailSender.send(mailMessage);
+        } catch (MailException e) {
+            System.out.println(e);
+        }
     }
 }
 

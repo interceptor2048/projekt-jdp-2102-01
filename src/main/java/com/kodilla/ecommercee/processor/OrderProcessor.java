@@ -6,6 +6,7 @@ import com.kodilla.ecommercee.domain.User;
 import com.kodilla.ecommercee.mapper.OrderMapper;
 import com.kodilla.ecommercee.repository.UserRepository;
 import com.kodilla.ecommercee.service.information.EmailSender;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -13,21 +14,14 @@ import java.util.List;
 @Service
 public class OrderProcessor implements Observable {
 
-    private List<User> users;
+    @Autowired
     UserRepository userRepository;
-
-    //private Order order;
 
     private OrderController controller;
 
     private OrderMapper mapper;
 
     private EmailSender emailSender;
-
-    /*public OrderProcessor(Order order) {
-        this.order = order;
-
-    }*/
 
     public void verifyOrder (Order order) {
         order.setVerified(true);
@@ -62,6 +56,7 @@ public class OrderProcessor implements Observable {
 
     @Override
     public void removeUsers(User user) {
-        users.remove(user);
+        userRepository.delete(user);
+        emailSender.notify();
     }
 }
