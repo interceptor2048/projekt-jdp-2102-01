@@ -24,5 +24,8 @@ public class Verifier {
 
     public void verifyOrder(Long orderId) {
         List<OrderItem> orderItemList = orderItemDbService.getOrderItemsByOrderId(orderId);
+
+        System.out.println("Is this your order?");
+        System.out.println(orderItemList.toString());
     }
 }
