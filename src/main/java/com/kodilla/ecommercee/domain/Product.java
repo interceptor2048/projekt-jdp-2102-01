@@ -64,4 +64,19 @@ public class Product {
         this.price = price;
         this.group = group;
     }
+
+    public Product(@NotNull String productName, String productDescription, @NotNull Double price) {
+        this.productName = productName;
+        this.productDescription = productDescription;
+        this.price = price;
+    }
+
+    @Override
+    public String toString() {
+        return "Product{" +
+                "productName='" + productName + '\'' +
+                ", productDescription='" + productDescription + '\'' +
+                ", price=" + price +
+                '}';
+    }
 }

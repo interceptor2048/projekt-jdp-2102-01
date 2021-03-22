@@ -27,7 +27,8 @@ public class Order {
 
     @OneToMany(
             targetEntity = OrderItem.class,
-            mappedBy = "order"
+            mappedBy = "order",
+            cascade = CascadeType.ALL
     )
     private List<OrderItem> orderItems;
 
