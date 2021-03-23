@@ -1,7 +1,6 @@
 package com.kodilla.ecommercee.domain;
 
-import com.kodilla.ecommercee.repository.GroupRepository;
-import com.kodilla.ecommercee.repository.ProductRepository;
+import com.kodilla.ecommercee.repository.*;
 
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -10,8 +9,8 @@ import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.junit4.SpringRunner;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.ArrayList;
 import java.util.List;
-import java.util.Optional;
 
 import static org.junit.Assert.*;
 
@@ -26,67 +25,108 @@ public class ProductEntityTestSuite {
     @Autowired
     private GroupRepository groupRepository;
 
+    @Autowired
+    private UserRepository userRepository;
+
+    @Autowired
+    private OrderItemRepository orderItemRepository;
+
+    @Autowired
+    private CartRepository cartRepository;
+
+
     @Test
-    public void testSaveProduct() {
+    public void testProductInGroup() {
         //Given
-        Product asus = new Product(1L, "asus", "asus rog", 2313.00);
-        Product lenovo = new Product(2L, "lenovo", "lenovo legion y720", 3234.00);
         Group group = new Group();
-
-        group.getProductList().add(asus);
-        group.getProductList().add(lenovo);
-        asus.setGroup(group);
-        lenovo.setGroup(group);
-
+        group.setGroupName("Group 1");
         groupRepository.save(group);
-        productRepository.save(asus);
-        productRepository.save(lenovo);
 
-        long groupId = group.getId();
-        long getProduct1Id = asus.getGroup().getId();
-        long getProduct2Id = lenovo.getGroup().getId();
+        Product asus = new Product();
+        group.getProductList().add(asus);
+        asus.setProductName("asus");
+        asus.setProductDescription("asus rog");
+        asus.setPrice(4500.00);
+        asus.setGroup(group);
+        productRepository.save(asus);
 
         //When
-        List<Product> resultProductsList = productRepository.findAll();
+        long productId = asus.getId();
+        long groupId = group.getId();
+        List<Product> productList = productRepository.findAll();
 
         //Then
-        assertNotEquals(0, groupId);
-        assertEquals(groupId, getProduct1Id);
-        assertEquals(groupId, getProduct2Id);
-        assertEquals(2, resultProductsList.size());
+        assertTrue(productRepository.findById(productId).isPresent());
+        assertTrue(groupRepository.findById(groupId).isPresent());
+        assertEquals("Group 1", productList.get(0).getGroup().getGroupName());
+    }
 
-        //CleanUp
-        productRepository.deleteAll();
+
+    @Test
+    public void testProductsInOrderItem() {
+        //Given
+        Product asus = new Product();
+        asus.setProductName("asus");
+        asus.setProductDescription("asus rog");
+        asus.setPrice(4500.00);
+        productRepository.save(asus);
+
+        OrderItem orderItems1 = new OrderItem();
+        orderItems1.setProduct(asus);
+        orderItemRepository.save(orderItems1);
+
+        //When
+        List<OrderItem> orderItemList = orderItemRepository.findAll();
+
+        //Then
+        assertEquals(1, orderItemList.size());
+        assertEquals("asus", orderItemList.get(0).getProduct().getProductName());
     }
 
     @Test
-    public void testUpdateProduct() {
+    public void testProductInCart() {
         //Given
-        Product tv = new Product(3L, "tv", "tv led", 623.00);
-        productRepository.save(tv);
+        Product asus = new Product();
+        asus.setProductName("asus");
+        asus.setProductDescription("asus rog 7");
+        asus.setPrice(3700.00);
+        Product lenovo = new Product();
+        lenovo.setProductName("lenovo");
+        lenovo.setProductDescription("lenovo y520");
+        lenovo.setPrice(4500.00);
+        productRepository.save(asus);
+        productRepository.save(lenovo);
 
-        Product productInDb = productRepository.findAll().get(0);
-        productInDb.setProductName("product update");
-        productInDb.setProductDescription("content update");
-        productInDb.setPrice(13.00);
-        productRepository.save(productInDb);
+        List<Product> productList = new ArrayList<>();
+        productList.add(asus);
+        productList.add(lenovo);
+
+        User user = new User("Pablo");
+        user.setUserKey(12345L);
+        user.setAddress("Poland");
+        user.setEmail("pablo@mail");
+        user.setPhoneNumber("522112344");
+        userRepository.save(user);
+
+        Cart cart = new Cart(1L, user, productList);
+        cartRepository.save(cart);
 
         //When
-        long id = productInDb.getId();
-        Optional<Product> updateProduct = productRepository.findById(id);
+        Cart resultCartFromDb = cartRepository.findAll().get(0);
+        Product resultProduct1 = resultCartFromDb.getProducts().get(0);
+        Product resultProduct2 = resultCartFromDb.getProducts().get(1);
 
         //Then
-        assertTrue(updateProduct.isPresent());
-        assertEquals("product update", updateProduct.get().getProductName());
-
-        //CleanUp
-        productRepository.deleteAll();
+        assertEquals("Pablo", resultCartFromDb.getUser().getUserName());
+        assertEquals(2, resultCartFromDb.getProducts().size());
+        assertEquals("asus", resultProduct1.getProductName());
+        assertEquals("lenovo", resultProduct2.getProductName());
     }
 
     @Test
     public void testDeleteProductById() {
         //Given
-        Product ssdDrive = new Product(4L, "Crucial", "Crucial bx500", 13.00);
+        Product ssdDrive = new Product(7L, "Crucial", "Crucial bx500", 13.00);
         productRepository.save(ssdDrive);
 
         //When
@@ -100,8 +140,8 @@ public class ProductEntityTestSuite {
     @Test
     public void testFindAllProducts() {
         //Given
-        Product pendrive = new Product(1L, "pendrive", "pendrive 32GB", 42.00);
-        Product ssd = new Product(2L, "ssd", "ssd 512GB", 452.00);
+        Product pendrive = new Product(19L, "pendrive", "pendrive 32GB", 42.00);
+        Product ssd = new Product(31L, "ssd", "ssd 512GB", 452.00);
 
         productRepository.save(pendrive);
         productRepository.save(ssd);
