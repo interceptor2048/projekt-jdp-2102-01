@@ -9,6 +9,7 @@ import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.junit4.SpringRunner;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
@@ -39,8 +40,8 @@ public class OrderEntityTestSuite {
         userRepository.save(user2);
 
         //When
-        Order order1 = new Order(111L, user2, true, true, true);
-        Order order2 = new Order(222L, user1, true, true, true);
+        Order order1 = new Order(111L, user2, new ArrayList<>(), true, true, true);
+        Order order2 = new Order(222L, user1, new ArrayList<>(), true, true, true);
         order1.setShipmentAddress("Somewhere in the world");
         order2.setShipmentAddress("Somewhere in the world");
         orderRepository.save(order1);

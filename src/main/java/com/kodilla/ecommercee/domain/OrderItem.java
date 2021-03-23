@@ -23,10 +23,9 @@ public class OrderItem {
 
     @ManyToOne
     @JoinColumn(name = "productId")
-    @GeneratedValue(strategy = GenerationType.AUTO)
     private Product product;
 
-    @ManyToOne
+    @ManyToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "orderId")
     private Order order;
 

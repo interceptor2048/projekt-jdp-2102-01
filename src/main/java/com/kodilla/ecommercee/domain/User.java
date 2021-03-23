@@ -35,15 +35,12 @@ public class User{
     private Long userKey;
 
     @Column(name = "email")
-    @NotNull
     private String email;
 
     @Column(name = "phone_number")
-    @NotNull
     private String phoneNumber;
 
     @Column(name = "address")
-    @NotNull
     private String address;
 
     @OneToMany(
